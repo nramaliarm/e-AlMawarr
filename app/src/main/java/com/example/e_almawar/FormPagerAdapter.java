@@ -25,3 +25,4 @@ public class FormPagerAdapter extends FragmentStateAdapter {
     public int getItemCount() {
         return 4; // Pastikan jumlah item sesuai dengan fragment yang diinginkan
     }
+}

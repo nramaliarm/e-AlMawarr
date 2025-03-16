@@ -1,6 +1,7 @@
 package com.example.e_almawar;
 
-import android.content.Intent;
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +21,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-
 public class SiswaHomeFragment extends Fragment {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -32,7 +32,6 @@ public class SiswaHomeFragment extends Fragment {
         // Inflate layout fragment_home.xml
         View view = inflater.inflate(R.layout.fragment_siswa_home, container, false);
 
-
         // Inisialisasi Firebase
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -40,30 +39,45 @@ public class SiswaHomeFragment extends Fragment {
         // Mengambil reference TextView untuk menyapa pengguna
         tvGreeting = view.findViewById(R.id.tv_greeting); // Pastikan ID ini sesuai dengan layout
 
-        // Ambil informasi pengguna yang sedang login dari Firebase Authentication
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user != null) {
-            String uid = user.getUid();
+        // Cek apakah nama pengguna sudah ada di SharedPreferences
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
+        String userName = sharedPreferences.getString("user_name", null);
 
-            // Ambil data pengguna dari Firebase Realtime Database
-            mDatabase.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        // Mendapatkan nama pengguna dari Firebase
-                        String name = dataSnapshot.child("nama").getValue(String.class); // Pastikan ada field "nama"
-                        if (name != null) {
-                            // Menampilkan nama pengguna di TextView greeting
-                            tvGreeting.setText("Halo, " + name + "!");
+        if (userName == null) {
+            // Jika belum ada, ambil data dari Firebase dan simpan di SharedPreferences
+            FirebaseUser user = mAuth.getCurrentUser();
+            if (user != null) {
+                String uid = user.getUid();
+
+                // Ambil data pengguna dari Firebase Realtime Database
+                mDatabase.child("users").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            // Mendapatkan nama pengguna dari Firebase
+                            String name = dataSnapshot.child("nama").getValue(String.class);
+                            if (name != null) {
+                                // Menampilkan nama pengguna di TextView greeting
+                                tvGreeting.setText("Halo, " + name + "!");
+
+                                // Simpan nama pengguna di SharedPreferences
+                                SharedPreferences.Editor editor = sharedPreferences.edit();
+                                editor.putString("user_name", name);
+                                editor.apply();
+                            }
                         }
                     }
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    // Menangani error jika ada
-                }
-            });
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // Menangani error jika ada
+                        tvGreeting.setText("Terjadi kesalahan, coba lagi nanti.");
+                    }
+                });
+            }
+        } else {
+            // Jika nama pengguna sudah ada di SharedPreferences, langsung tampilkan
+            tvGreeting.setText("Halo, " + userName + "!");
         }
 
         // Inisialisasi tombol daftar
