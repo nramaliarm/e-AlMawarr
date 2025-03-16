@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradien_background"
-    tools:context=".SiswaAkunFragment">
+    tools:context=".EditProfileSiswaFragment">
 
     <!-- Header -->
     <TextView
@@ -14,14 +14,14 @@
         android:layout_height="wrap_content"
         android:paddingStart="16dp"
         android:paddingTop="16dp"
-        android:text="Akun"
+        android:text="Edit Profile"
         android:textColor="#000000"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- Card View untuk Profil -->
+    <!-- Card View untuk Edit Profil -->
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="0dp"
@@ -40,32 +40,22 @@
             android:padding="40dp"
             android:scrollbarSize="20dp">
 
-            <!-- Foto Profil -->
-            <ImageView
-                android:id="@+id/ivProfile"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:background="@drawable/ic_profile"
-                android:padding="4dp"
-                android:scaleType="centerCrop"/>
-
             <!-- Nama -->
             <TextView
                 android:id="@+id/tvNameLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
                 android:text="Nama :"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvName"
+            <EditText
+                android:id="@+id/etName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:layout_marginTop="8dp"
                 android:textSize="16sp"
-                android:textColor="#000" />
+                android:hint="Masukkan Nama" />
 
             <View
                 android:layout_width="match_parent"
@@ -82,51 +72,13 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvEmail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text=""
-                android:textSize="16sp"
-                android:textColor="#000" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginBottom="8dp"
-                android:background="@android:color/darker_gray" />
-
-            <!-- Password -->
-            <TextView
-                android:id="@+id/tvPasswordLabel"
+            <EditText
+                android:id="@+id/etEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:text="Password :"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:id="@+id/tvPassword"
-                    android:text=""
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:id="@+id/ivTogglePassword"
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_marginStart="8dp"
-                    android:src="@drawable/ic_visible" />
-            </LinearLayout>
+                android:textSize="16sp"
+                android:hint="Masukkan Email" />
 
             <View
                 android:layout_width="match_parent"
@@ -134,30 +86,17 @@
                 android:layout_marginBottom="8dp"
                 android:background="@android:color/darker_gray" />
 
-            <!-- Tombol Edit Profile -->
+            <!-- Tombol Simpan -->
             <Button
-                android:id="@+id/btnEditProfile"
+                android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="20dp"
                 android:backgroundTint="@color/orange"
-                android:text="Edit Profile"
+                android:text="Simpan"
                 android:textColor="@android:color/white"
                 android:textSize="16sp" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
-    <!-- Tombol Keluar -->
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="210dp"
-        android:layout_height="50dp"
-        android:layout_margin="16dp"
-        android:backgroundTint="@color/red"
-        android:text="Keluar"
-        android:textColor="@android:color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -17,55 +17,62 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class SiswaAkunFragment extends Fragment {
 
-    Button btnLogout;
-    TextView tvUserName, tvEmail;  // TextViews untuk menampilkan nama dan email pengguna
+    Button btnLogout, btnEditProfile;
+    TextView tvUserName, tvEmail;  // TextViews for displaying user name and email
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_siswa_akun, container, false);
 
-        // Menghubungkan tombol dan TextView dengan layout XML
+        // Link views to their XML counterparts
         btnLogout = view.findViewById(R.id.btnLogout);
-        tvUserName = view.findViewById(R.id.tvName); // ID untuk TextView nama pengguna
-        tvEmail = view.findViewById(R.id.tvEmailLabel); // ID untuk TextView email pengguna
+        btnEditProfile = view.findViewById(R.id.btnEditProfile);  // Edit Profile button
+        tvUserName = view.findViewById(R.id.tvName);  // TextView for displaying the username
+        tvEmail = view.findViewById(R.id.tvEmail);  // TextView for displaying the email
 
-        // Ambil data pengguna dari SharedPreferences
+        // Retrieve user data from SharedPreferences
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
-        String userName = sharedPreferences.getString("user_name", "Tidak Diketahui");
-        String userEmail = sharedPreferences.getString("user_email", "Tidak Diketahui");
+        String userName = sharedPreferences.getString("user_name", "Not Available");
+        String userEmail = sharedPreferences.getString("user_email", "Not Available");
 
-        // Menampilkan data nama dan email pengguna di TextView
+        // Display the username and email in the TextViews
         tvUserName.setText(userName);
         tvEmail.setText(userEmail);
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Tampilkan dialog konfirmasi logout
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setTitle("Keluar");
-                builder.setMessage("Apakah Anda yakin ingin keluar?");
-                builder.setPositiveButton("Ya", (dialog, which) -> {
-                    // Hapus data login yang tersimpan di SharedPreferences
-                    SharedPreferences sharedPreferences = getActivity().getSharedPreferences("user_data", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.clear(); // Menghapus semua data
-                    editor.apply(); // Simpan perubahan
+        // Handle Logout button click
+        btnLogout.setOnClickListener(v -> {
+            // Show confirmation dialog for logging out
+            new AlertDialog.Builder(getContext())
+                    .setTitle("Logout")
+                    .setMessage("Are you sure you want to log out?")
+                    .setCancelable(false)
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        // Clear the user data stored in SharedPreferences
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.clear();  // Clear all data
+                        editor.apply();   // Save the changes
 
-                    // Logout dari Firebase
-                    FirebaseAuth.getInstance().signOut();
+                        // Log out from Firebase
+                        FirebaseAuth.getInstance().signOut();
 
-                    // Arahkan ke LoginSiswaActivity setelah logout
-                    Intent intent = new Intent(getActivity(), LoginSiswaActivity.class);
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK); // Clear stack activity
-                    startActivity(intent);
-                    getActivity().finish(); // Tutup semua activity sebelumnya
-                });
-                builder.setNegativeButton("Tidak", null);
-                builder.show();
-            }
+                        // Redirect to Login page after logout
+                        Intent intent = new Intent(getActivity(), LoginSiswaActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);  // Clear activity stack
+                        startActivity(intent);
+                        getActivity().finish();  // Close all previous activities
+                    })
+                    .setNegativeButton("No", null)  // Cancel logout action
+                    .show();
         });
 
-        return view;
+        // Handle Edit Profile button click
+        btnEditProfile.setOnClickListener(v -> {
+            // Open the Edit Profile activity
+            Intent intent = new Intent(getActivity(), EditProfileSiswaFragment.class);
+            startActivity(intent);
+        });
+
+        return view;  // Return the view to be displayed
     }
 }
