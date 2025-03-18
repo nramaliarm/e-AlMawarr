@@ -32,7 +32,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tvHeader">
 
-        <LinearLayout
+
+               <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
@@ -40,14 +41,19 @@
             android:padding="40dp"
             android:scrollbarSize="20dp">
 
-            <!-- Foto Profil -->
+            <!-- Foto Profil (Circular) -->
             <ImageView
                 android:id="@+id/ivProfile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="12dp"
                 android:background="@drawable/ic_profile"
                 android:padding="4dp"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:clipToOutline="true"
+                android:outlineProvider="background" />
+
 
             <!-- Nama -->
             <TextView
@@ -63,7 +69,7 @@
                 android:id="@+id/tvName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="Not Available"
                 android:textSize="16sp"
                 android:textColor="#000" />
 
@@ -86,7 +92,7 @@
                 android:id="@+id/tvEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
+                android:text="Not Available"
                 android:textSize="16sp"
                 android:textColor="#000" />
 
@@ -117,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:id="@+id/tvPassword"
-                    android:text=""
+                    android:text="Not Available"
                     android:textSize="14sp" />
 
                 <ImageView

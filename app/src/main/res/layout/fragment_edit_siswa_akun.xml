@@ -40,6 +40,25 @@
             android:padding="40dp"
             android:scrollbarSize="20dp">
 
+            <!-- Foto Profil -->
+            <ImageView
+                android:id="@+id/ivProfile"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:background="@drawable/circle_background"
+                android:padding="4dp"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="20dp" />
+
+            <!-- Tombol Pilih Gambar -->
+            <Button
+                android:id="@+id/btnChooseImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pilih Gambar"
+                android:layout_marginBottom="20dp"
+                android:textColor="#000" />
+
             <!-- Nama -->
             <TextView
                 android:id="@+id/tvNameLabel"
@@ -57,11 +76,7 @@
                 android:textSize="16sp"
                 android:hint="Masukkan Nama" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginBottom="8dp"
-                android:background="@android:color/darker_gray" />
+
 
             <!-- Email -->
             <TextView
@@ -80,11 +95,46 @@
                 android:textSize="16sp"
                 android:hint="Masukkan Email" />
 
-            <View
+
+
+            <!-- Password Lama -->
+            <TextView
+                android:id="@+id/tvOldPasswordLabel"
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginBottom="8dp"
-                android:background="@android:color/darker_gray" />
+                android:layout_height="wrap_content"
+                android:text="Password Lama :"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etOldPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:hint="Masukkan Password Lama"
+                android:inputType="textPassword" />
+
+
+            <!-- Password Baru -->
+            <TextView
+                android:id="@+id/tvNewPasswordLabel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Password Baru :"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/etNewPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="16sp"
+                android:hint="Masukkan Password Baru"
+                android:inputType="textPassword" />
+
+
 
             <!-- Tombol Simpan -->
             <Button
