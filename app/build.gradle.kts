@@ -35,7 +35,6 @@ android {
 
 dependencies {
 
-//    implementation()
     implementation(libs.appcompat)
     implementation(libs.material)
     implementation(libs.activity)
@@ -54,6 +53,6 @@ dependencies {
     implementation("com.squareup.okhttp3:okhttp:4.9.1")
     implementation("com.google.firebase:firebase-auth:21.0.1")
     implementation("com.google.firebase:firebase-database:20.0.3")
-
-
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
 }

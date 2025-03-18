@@ -2,19 +2,15 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradien_background">
 
-
-    <!-- ScrollView untuk konten utama -->
+    <!-- ScrollView untuk membuat konten bisa di-scroll -->
     <ScrollView
-        android:id="@+id/scrollView2"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:fillViewport="true"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -25,8 +21,7 @@
             <!-- Header -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="60dp">
+                android:layout_height="wrap_content">
 
                 <TextView
                     android:id="@+id/tv_greeting"
@@ -94,51 +89,120 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.114"
                     app:layout_constraintStart_toStartOf="parent" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp"
+                android:gravity="center_horizontal">
+
+                <!-- CardView untuk Visi -->
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:padding="20dp"
-                    app:cardCornerRadius="20dp"
-                    app:cardElevation="8dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/imageView5">
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    android:background="@drawable/background_visi">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp">
+                        android:padding="16dp"
+                        android:gravity="center"
+                        android:orientation="vertical">
 
                         <TextView
-                            android:id="@+id/textView4"
-                            android:layout_width="match_parent"
+                            android:id="@+id/textVisiTitle"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Sejarah"
-                            android:textSize="20sp"
+                            android:text="VISI"
+                            android:textSize="18sp"
                             android:textStyle="bold"
-                            android:textColor="@color/black"
-                            android:paddingBottom="8dp" />
+                            android:textColor="@color/black" />
 
                         <TextView
-                            android:id="@+id/textView5"
+                            android:id="@+id/textVisiContent"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:padding="8dp"
-                            android:textSize="16sp"
-                            android:lineSpacingExtra="4dp"
+                            android:gravity="center"
+                            android:text="“UNGGUL DALAM IMTAQ, KOMPETITIF DALAM IPTEK DAN BERWAWASAN GLOBAL”"
+                            android:textAlignment="center"
                             android:textColor="@color/black"
-                            android:justificationMode="inter_word"
-                            android:text="Kolaka merupakan salah satu daerah pesisir pantai yang berbatasan langsung dengan pegunungan. Kolaka juga dikenal sebagai daerah pegunungan yang memberikan keindahan panorama dan memiliki sumber alam yang melimpah. Kolaka terletak di bagian barat Provinsi Sulawesi Tenggara dengan luas wilayah sekitar 3.283,64 km² serta terbagi menjadi 12 kecamatan 100 desa dan 35 kelurahan dengan jumlah penduduk sebanyak 228.970 jiwa. Kabupaten ini merupakan salah satu wilayah terbesar di provinsi Sulawesi Tenggara yang memiliki kekayaan alam yang sangat potensial berupa hasil pertanian, pertambangan dan juga perikanan. Hasil pertanian dengan komoditi cengkeh, kakao, padi, merica, nilam, kelapa, jagung dan durian yang melimpah. Potensi hasil tambang berupa emas, nikel, marmer, onix, kuarsa dan granit hitam hasil alam menjadi keunggulan Provinsi Sulawesi Tenggara khususnya Kabupaten Kolaka. Hasil perikanan dengan komoditi tambak, kolam ikan dan rumput laut yang kini banyak dikembangkan masyarakat Kabupaten Kolaka." />
-
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:paddingTop="8dp"/>
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
+                <!-- CardView untuk Misi -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="4dp"
+                    android:background="@drawable/background_visi">
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="16dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textMisiContent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:textStyle="bold"
+                            android:text=" MISI\n \n Menumbuh kembangkan ketaatan beribadah dan nilai-nilai akhlak karimah, Meningkatkan kecintaan terhadap Al Qur’an, Mengembangkan pembelajaran berbasis SAINTEK, Meningkatkan penguasaan berbahasa asing \n"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:paddingTop="8dp"/>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="100dp">
+
+                <!-- Tombol Batal -->
+                <Button
+                    android:id="@+id/btn_batal"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/white"
+                    android:text="Batal"
+                    android:textColor="#F58C42"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="16dp"
+                    android:layout_height="wrap_content" />
+
+                <!-- Tombol Simpan Perubahan -->
+                <Button
+                    android:id="@+id/btn_simpan"
+                    android:layout_width="0dp"
+                    android:layout_height="48dp"
+                    android:layout_weight="1"
+                    android:backgroundTint="@color/button_color"
+                    android:text="Simpan"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
 
         </LinearLayout>
     </ScrollView>

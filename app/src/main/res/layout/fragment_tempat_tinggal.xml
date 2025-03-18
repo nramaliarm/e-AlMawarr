@@ -66,6 +66,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/etAlamat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -87,6 +88,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/etTinggalBersama"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -108,6 +110,7 @@
                     android:textStyle="bold" />
 
                 <EditText
+                    android:id="@+id/etStatusRumah"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -138,7 +141,7 @@
                         android:text="❮ Sebelumnya" />
 
                     <Button
-                        android:id="@+id/btn_next"
+                        android:id="@+id/btn_submit"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="5dp"

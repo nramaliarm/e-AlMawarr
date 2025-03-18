@@ -1,49 +1,34 @@
 package com.example.e_almawar;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.e_almawar.viewmodel.FormViewModel;
 
 public class BiodataFragment extends Fragment {
 
-    private EditText etNamaLengkap, etNisn, etNik, etTempatTanggalLahir, etJenisKelamin, etAgama,
-            etJumlahSaudara, etNomorHandphone, etEmail, etAsalSekolah, etNpsn, etAlamatSekolah;
+    private EditText etNamaLengkap, etNisn, etNik, etTempatTanggalLahir, etJenisKelamin, etAgama;
+    private EditText etJumlahSaudara, etNomorHandphone, etEmail, etAsalSekolah, etNpsn, etAlamatSekolah;
     private Button btnNext;
-
-    private DatabaseReference mDatabase;
-    private FirebaseAuth mAuth;
+    private FormViewModel formViewModel;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_biodata, container, false);
 
-        // Inisialisasi Firebase
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        // Cek apakah user sudah login
-        FirebaseUser user = mAuth.getCurrentUser();
-        if (user == null) {
-            Log.d("FirebaseAuth", "User tidak login, kembali ke LoginActivity!");
-            Intent intent = new Intent(getActivity(), LoginAdminActivity.class);
-            startActivity(intent);
-            getActivity().finish();
-            return view;
-        }
+        // Inisialisasi ViewModel
+        formViewModel = new ViewModelProvider(requireActivity()).get(FormViewModel.class);
 
         // Inisialisasi EditText
         etNamaLengkap = view.findViewById(R.id.etNamaLengkap);
@@ -59,72 +44,90 @@ public class BiodataFragment extends Fragment {
         etNpsn = view.findViewById(R.id.etNpsn);
         etAlamatSekolah = view.findViewById(R.id.etAlamatSekolah);
 
+        // Isi ulang data jika sudah ada di ViewModel
+        etNamaLengkap.setText(formViewModel.getNamaLengkap());
+        etNisn.setText(formViewModel.getNisn());
+        etNik.setText(formViewModel.getNik());
+        etTempatTanggalLahir.setText(formViewModel.getTempatTanggalLahir());
+        etJenisKelamin.setText(formViewModel.getJenisKelamin());
+        etAgama.setText(formViewModel.getAgama());
+        etJumlahSaudara.setText(formViewModel.getJumlahSaudara());
+        etNomorHandphone.setText(formViewModel.getNomorHandphone());
+        etEmail.setText(formViewModel.getEmail());
+        etAsalSekolah.setText(formViewModel.getAsalSekolah());
+        etNpsn.setText(formViewModel.getNpsn());
+        etAlamatSekolah.setText(formViewModel.getAlamatSekolah());
+
+        // Simpan otomatis saat user mengetik
+        addTextWatchers();
+
         // Inisialisasi Button Next
         btnNext = view.findViewById(R.id.btn_next);
-        btnNext.setOnClickListener(v -> {
-            submitData();
-            pindahKeHalamanSelanjutnya();
-        });
+        btnNext.setOnClickListener(v -> pindahKeHalamanSelanjutnya());
 
         return view;
     }
 
-    private void submitData() {
-        String namaLengkap = etNamaLengkap.getText().toString().trim();
-        String nisn = etNisn.getText().toString().trim();
-        String nik = etNik.getText().toString().trim();
-        String tempatTanggalLahir = etTempatTanggalLahir.getText().toString().trim();
-        String jenisKelamin = etJenisKelamin.getText().toString().trim();
-        String agama = etAgama.getText().toString().trim();
-        String jumlahSaudara = etJumlahSaudara.getText().toString().trim();
-        String nomorHandphone = etNomorHandphone.getText().toString().trim();
-        String email = etEmail.getText().toString().trim();
-        String asalSekolah = etAsalSekolah.getText().toString().trim();
-        String npsn = etNpsn.getText().toString().trim();
-        String alamatSekolah = etAlamatSekolah.getText().toString().trim();
+    private void addTextWatchers() {
+        etNamaLengkap.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) { formViewModel.setNamaLengkap(s.toString()); }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
 
-        if (namaLengkap.isEmpty() || nisn.isEmpty() || nik.isEmpty() || tempatTanggalLahir.isEmpty() || jenisKelamin.isEmpty() ||
-                agama.isEmpty() || jumlahSaudara.isEmpty() || nomorHandphone.isEmpty() || email.isEmpty() || asalSekolah.isEmpty() ||
-                npsn.isEmpty() || alamatSekolah.isEmpty()) {
-            Toast.makeText(getActivity(), "Harap isi semua kolom!", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        etNisn.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) { formViewModel.setNisn(s.toString()); }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
 
-        // Buat objek BiodataSiswa
-        BiodataSiswa biodataSiswa = new BiodataSiswa(namaLengkap, nisn, nik, tempatTanggalLahir, jenisKelamin,
-                agama, jumlahSaudara, nomorHandphone, email, asalSekolah, npsn, alamatSekolah);
+        etNik.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) { formViewModel.setNik(s.toString()); }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
 
-        // Simpan ke Firebase
-        String userId = mDatabase.child("pendaftar").push().getKey();
-        if (userId != null) {
-            mDatabase.child("pendaftar").child(userId).setValue(biodataSiswa)
-                    .addOnSuccessListener(aVoid -> {
-                        Toast.makeText(getActivity(), "Pendaftaran berhasil!", Toast.LENGTH_SHORT).show();
-                        clearFields();
-                    })
-                    .addOnFailureListener(e -> {
-                        Toast.makeText(getActivity(), "Pendaftaran gagal: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    });
-        }
+        etTempatTanggalLahir.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) { formViewModel.setTempatTanggalLahir(s.toString()); }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
+
+        etJenisKelamin.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) { formViewModel.setJenisKelamin(s.toString()); }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
+
+        etAgama.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) { formViewModel.setAgama(s.toString()); }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+        });
     }
 
     private void pindahKeHalamanSelanjutnya() {
-        Intent intent = new Intent(getActivity(), OrangtuaFragment.class);
-        startActivity(intent);
-    }
-
-    private void clearFields() {
-        etNamaLengkap.setText("");
-        etNisn.setText("");
-        etNik.setText("");
-        etTempatTanggalLahir.setText("");
-        etJenisKelamin.setText("");
-        etAgama.setText("");
-        etJumlahSaudara.setText("");
-        etNomorHandphone.setText("");
-        etEmail.setText("");
-        etAsalSekolah.setText("");
-        etNpsn.setText("");
-        etAlamatSekolah.setText("");
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, new BiodataOrangtuaFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

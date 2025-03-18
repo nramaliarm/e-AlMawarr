@@ -6,77 +6,79 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.example.e_almawar.viewmodel.FormViewModel;
 
 public class WaliFragment extends Fragment {
 
-    private EditText etNamaWali, etPekerjaanWali, etPenghasilanWali, etNomorHandphoneWali;
+    private EditText etNamaWali, etPendidikanWali, etPekerjaanWali, etPenghasilanWali, etNomorHandphoneWali;
     private Button btnNext, btnPrev;
-
-    private DatabaseReference mDatabase;
+    private FormViewModel formViewModel;
 
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_wali, container, false);
 
-        // Inisialisasi Firebase Database
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        // Inisialisasi ViewModel
+        formViewModel = new ViewModelProvider(requireActivity()).get(FormViewModel.class);
 
-        // Inisialisasi EditText
+        // Inisialisasi EditText Wali
         etNamaWali = view.findViewById(R.id.etNamaWali);
+        etPendidikanWali = view.findViewById(R.id.etPendidikanWali);
         etPekerjaanWali = view.findViewById(R.id.etPekerjaanWali);
         etPenghasilanWali = view.findViewById(R.id.etPenghasilanWali);
         etNomorHandphoneWali = view.findViewById(R.id.etNomorHandphoneWali);
 
-        // Tombol Next
+        // Mengisi ulang data jika sudah ada di ViewModel
+        etNamaWali.setText(formViewModel.namaWali);
+        etPendidikanWali.setText(formViewModel.pendidikanWali);
+        etPekerjaanWali.setText(formViewModel.pekerjaanWali);
+        etPenghasilanWali.setText(formViewModel.penghasilanWali);
+        etNomorHandphoneWali.setText(formViewModel.nomorHandphoneWali);
+
+        // Inisialisasi tombol
         btnNext = view.findViewById(R.id.btn_next);
+        btnPrev = view.findViewById(R.id.btn_prev);
+
+        // Tombol Next ke halaman berikutnya
         btnNext.setOnClickListener(v -> {
-            saveDataToFirebase();  // Menyimpan data ke Firebase
-            // Navigasi ke halaman berikutnya jika perlu
+            simpanData();
+            pindahKeHalamanSelanjutnya();
         });
 
-        // Tombol Previous
-        btnPrev = view.findViewById(R.id.btn_prev);
+        // Tombol Previous kembali ke halaman sebelumnya
         btnPrev.setOnClickListener(v -> {
-            // Navigasi ke halaman sebelumnya jika perlu
+            simpanData();
+            pindahKeHalamanSebelumnya();
         });
 
         return view;
     }
 
-    private void saveDataToFirebase() {
-        // Ambil data dari EditText
-        String namaWali = etNamaWali.getText().toString().trim();
-        String pekerjaanWali = etPekerjaanWali.getText().toString().trim();
-        String penghasilanWali = etPenghasilanWali.getText().toString().trim();
-        String nomorHandphoneWali = etNomorHandphoneWali.getText().toString().trim();
+    private void simpanData() {
+        formViewModel.namaWali = etNamaWali.getText().toString().trim();
+        formViewModel.pendidikanWali = etPendidikanWali.getText().toString().trim();
+        formViewModel.pekerjaanWali = etPekerjaanWali.getText().toString().trim();
+        formViewModel.penghasilanWali = etPenghasilanWali.getText().toString().trim();
+        formViewModel.nomorHandphoneWali = etNomorHandphoneWali.getText().toString().trim();
+    }
 
-        // Validasi input
-        if (namaWali.isEmpty() || pekerjaanWali.isEmpty() || penghasilanWali.isEmpty() || nomorHandphoneWali.isEmpty()) {
-            Toast.makeText(getContext(), "Harap isi semua kolom!", Toast.LENGTH_SHORT).show();
-        } else {
-            // Membuat objek BiodataWali dengan data yang diambil
-            BiodataWali biodataWali = new BiodataWali(namaWali, pekerjaanWali, penghasilanWali, nomorHandphoneWali);
+    private void pindahKeHalamanSelanjutnya() {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, new TempatTinggalFragment());
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 
-            // Menyimpan data ke Firebase Realtime Database
-            String userId = mDatabase.push().getKey(); // Mendapatkan ID unik untuk setiap entri data
-            if (userId != null) {
-                mDatabase.child("wali").child(userId).setValue(biodataWali)
-                        .addOnSuccessListener(aVoid -> {
-                            // Berhasil menyimpan data
-                            Toast.makeText(getContext(), "Data wali berhasil disimpan", Toast.LENGTH_SHORT).show();
-                        })
-                        .addOnFailureListener(e -> {
-                            // Gagal menyimpan data
-                            Toast.makeText(getContext(), "Gagal menyimpan data wali: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                        });
-            }
-        }
+    private void pindahKeHalamanSebelumnya() {
+        FragmentTransaction transaction = getParentFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, new OrangtuaFragment()); // Ganti dengan fragment sebelumnya
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

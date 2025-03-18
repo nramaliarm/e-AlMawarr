@@ -91,31 +91,58 @@
                     app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:id="@+id/visi"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/background_visi"
-                android:gravity="center"
-                android:text="VISI\n \n“UNGGUL DALAM IMTAQ, KOMPETITIF DALAM IPTEK DAN BERWAWASAN GLOBAL”"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:padding="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="4dp">
 
-            <TextView
-                android:id="@+id/misi"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/text_sejarah"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Tujuan"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:paddingBottom="8dp" />
+
+                    <TextView
+                        android:id="@+id/list_poin"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:textSize="16sp"
+                        android:justificationMode="inter_word"
+                        android:textColor="@color/black"
+                        android:lineSpacingExtra="0dp"
+                        android:gravity="start"
+                        android:padding="8dp"
+                        android:paddingTop="4dp"
+                        android:paddingBottom="4dp"
+                        android:autoLink="web"
+                        android:linksClickable="true" />
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <!-- Button Edit Sejarah -->
+            <Button
+                android:id="@+id/btn_edit_tujuan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/background_visi"
-                android:gravity="center"
-                android:text="\n MISI\n \n Menumbuh kembangkan ketaatan beribadah dan nilai-nilai akhlak karimah, Meningkatkan kecintaan terhadap Al Qur’an, Mengembangkan pembelajaran berbasis SAINTEK, Meningkatkan penguasaan berbahasa asing \n"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:layout_marginBottom="100dp"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:fontFamily="@font/inter_bold"
+                android:text="Edit Tujuan" />
 
         </LinearLayout>
     </ScrollView>

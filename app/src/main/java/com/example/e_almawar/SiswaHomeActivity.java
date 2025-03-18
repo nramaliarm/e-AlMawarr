@@ -1,39 +1,42 @@
 package com.example.e_almawar;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.TextView;
+import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class SiswaHomeActivity extends AppCompatActivity {
-
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_siswa_home);
 
+        mAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = mAuth.getCurrentUser();
 
+        if (user == null) {
+            Log.e("SiswaHomeActivity", "User tidak ditemukan! Kembali ke Login.");
+            startActivity(new Intent(this, LoginAdminActivity.class));
+            finish();
+            return;
+        } else {
+            Log.d("SiswaHomeActivity", "User masih login: " + user.getEmail());
+        }
 
-        // Inisialisasi BottomNavigationView
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        // Tampilkan fragment default (SiswaHomeFragment)
         if (savedInstanceState == null) {
             replaceFragment(new SiswaHomeFragment());
         }
 
-        // Menangani pemilihan item pada BottomNavigationView
         bottomNavigationView.setOnItemSelectedListener(item -> {
             Fragment selectedFragment = null;
 
@@ -49,17 +52,25 @@ public class SiswaHomeActivity extends AppCompatActivity {
 
             if (selectedFragment != null) {
                 replaceFragment(selectedFragment);
+            } else {
+                Log.e("SiswaHomeActivity", "Fragment yang dipilih null!");
             }
 
             return true;
         });
     }
 
-    // Metode untuk mengganti fragment
     public void replaceFragment(Fragment fragment) {
+        if (fragment == null) {
+            Log.e("SiswaHomeActivity", "replaceFragment: Fragment yang dikirimkan null!");
+            return;
+        }
+
+        Log.d("SiswaHomeActivity", "Mengganti fragment ke: " + fragment.getClass().getSimpleName());
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment); // Pastikan ID ini sesuai dengan XML
+        fragmentTransaction.replace(R.id.fragment_container, fragment);
         fragmentTransaction.commit();
     }
 }

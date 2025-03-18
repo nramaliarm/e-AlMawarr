@@ -16,26 +16,28 @@ public class SiswaFormulirFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_siswa_formulir, container, false);
+        return inflater.inflate(R.layout.fragment_siswa_formulir, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         viewPager = view.findViewById(R.id.viewPager);
-        adapter = new FormPagerAdapter(this);
+        adapter = new FormPagerAdapter(requireActivity()); // Perbaikan disini
         viewPager.setAdapter(adapter);
         viewPager.setUserInputEnabled(false); // Matikan swipe manual, hanya bisa pakai tombol
-
-        return view;
     }
 
     public void nextPage() {
-        if (viewPager.getCurrentItem() < adapter.getItemCount() - 1) {
+        if (viewPager != null && viewPager.getCurrentItem() < adapter.getItemCount() - 1) {
             viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
         }
     }
 
     public void previousPage() {
-        if (viewPager.getCurrentItem() > 0) {
+        if (viewPager != null && viewPager.getCurrentItem() > 0) {
             viewPager.setCurrentItem(viewPager.getCurrentItem() - 1);
         }
     }
 }
-

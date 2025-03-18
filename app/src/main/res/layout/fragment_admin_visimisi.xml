@@ -117,6 +117,17 @@
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
+            <!-- Button Edit Sejarah -->
+            <Button
+                android:id="@+id/btn_edit_visimisi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="100dp"
+                android:backgroundTint="@android:color/holo_red_dark"
+                android:fontFamily="@font/inter_bold"
+                android:text="Edit Visi dan Misi" />
+
         </LinearLayout>
     </ScrollView>
 

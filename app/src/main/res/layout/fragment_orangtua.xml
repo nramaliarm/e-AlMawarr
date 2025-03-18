@@ -202,7 +202,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/etNomorHandphoneOrangtua"
+                    android:id="@+id/etNomorHp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"

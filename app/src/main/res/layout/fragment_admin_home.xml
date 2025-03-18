@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     android:background="@drawable/gradien_background">
 
-    <!-- ScrollView untuk membuat konten bisa di-scroll -->
+    <!-- ScrollView untuk konten utama -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -52,7 +54,8 @@
                     android:layout_height="43dp"
                     android:layout_marginTop="24dp"
                     android:fontFamily="sans-serif-black"
-                    android:text="Profile Sekolah"
+                    android:text="Sekolah Islam Terpadu ALMAWAR Kolaka"
+                    android:textAlignment="textStart"
                     android:textColor="@color/black"
                     android:textSize="18sp"
                     android:textStyle="bold"
@@ -61,61 +64,69 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/tv_greeting" />
 
-                <ImageView
-                    android:id="@+id/imageView5"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:adjustViewBounds="true"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/location_background"
+                    android:padding="8dp"
+                    android:text="  Jl.Pondok Pesantren No.10, Lakomato, Kec. Kolaka"
+                    android:textAlignment="textStart"
+                    android:textColor="@color/black"
+                    android:textSize="12sp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/tv_school_name"
-                    app:srcCompat="@drawable/sekolah" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_school_name" />
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="239dp"
-                    android:layout_height="52dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="#00575050"
-                    android:fontFamily="sans-serif-black"
-                    android:shadowColor="#262424"
-                    android:shadowDx="3"
-                    android:shadowDy="3"
-                    android:shadowRadius="20"
-                    android:text="Sekolah Islam Terpadu ALMAWAR Kolaka"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    app:layout_constraintBottom_toBottomOf="@+id/imageView5"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.114"
-                    app:layout_constraintStart_toStartOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <!-- Content -->
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/sekolah" />
+
             <TextView
-                android:id="@+id/visi"
+                android:id="@+id/textView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/background_visi"
                 android:gravity="center"
-                android:text="VISI\n \n“UNGGUL DALAM IMTAQ, KOMPETITIF DALAM IPTEK DAN BERWAWASAN GLOBAL”"
+                android:text="“UNGGUL DALAM IMTAQ, KOMPETITIF DALAM IPTEK DAN BERWAWASAN GLOBAL”"
                 android:textAlignment="center"
                 android:textColor="#FFFFFF"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/misi"
+            <ImageView
+                android:id="@+id/imageView6"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:background="@drawable/background_visi"
-                android:gravity="center"
-                android:text="\n MISI\n \n Menumbuh kembangkan ketaatan beribadah dan nilai-nilai akhlak karimah, Meningkatkan kecintaan terhadap Al Qur’an, Mengembangkan pembelajaran berbasis SAINTEK, Meningkatkan penguasaan berbahasa asing \n"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
-                android:textSize="16sp"
-                android:textStyle="bold" />
+                android:adjustViewBounds="true"
+                app:srcCompat="@drawable/alur_pendaftaran" />
+
+            <Button
+                android:id="@+id/button_daftar_database"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="80dp"
+                android:backgroundTint="@color/button_color"
+                android:fontFamily="sans-serif-black"
+                android:padding="16dp"
+                android:shadowColor="#3C3A3A"
+                android:shadowDx="5"
+                android:shadowDy="5"
+                android:shadowRadius="10"
+                android:text="Database Pendaftar >"
+                android:textColor="#FDFDFD"
+                android:textSize="18sp" />
 
         </LinearLayout>
     </ScrollView>
